@@ -41,6 +41,9 @@ function changePic() {
 
 function init() {
   populateVoiceList();
+  if (speechSynthesis.onvoiceschanged !== undefined) {
+    speechSynthesis.onvoiceschanged = populateVoiceList;
+  }
   var talkButton = document.getElementsByTagName("button");
   talkButton[0].addEventListener('click', speakPlease);
 }
