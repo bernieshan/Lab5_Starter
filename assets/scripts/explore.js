@@ -1,12 +1,12 @@
 // explore.js
 
 window.addEventListener('DOMContentLoaded', init);
+var voices = [];
 
 var synth = window.speechSynthesis;
 
 function populateVoiceList() {
   var voiceSelect = document.querySelector('select');
-  var voices = [];
   voices = synth.getVoices();
 
   for(var i = 0; i < voices.length ; i++) {
@@ -26,6 +26,13 @@ function populateVoiceList() {
 function speakPlease() {
   var inputTxt = document.getElementsByTagName("textarea");
   var utterThis = new SpeechSynthesisUtterance(inputTxt[0].value);
+  var voiceSelect = document.querySelector('select');
+  var selectedOption = voiceSelect.selectedOptions[0].getAttribute('data-name');
+  for(var i = 0; i < voices.length ; i++) {
+    if(voices[i].name === selectedOption) {
+      utterThis.voice = voices[i];
+    }
+  }
   var faceImage = document.querySelectorAll('img')[0];
 
   faceImage.setAttribute("src", "assets/images/smiling-open.png");
